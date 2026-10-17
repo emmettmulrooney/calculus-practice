@@ -2,7 +2,7 @@
 const $ = id => document.getElementById(id);
 const store = Object.assign({ streak: 0, solved: 0, per: {}, wordDone: {} }, JSON.parse(localStorage.getItem("calcStats") || "{}"));
 const save = () => localStorage.setItem("calcStats", JSON.stringify(store));
-const state = { tab: localStorage.getItem("calcTab") || "learn", skill: "power", mixed: false, prob: null, answered: false, lesson: "start", word: "bathtub", wp: null, stage: 0 };
+const state = { tab: localStorage.getItem("calcTab") || "learn", skill: "power", mixed: false, prob: null, answered: false, lesson: "start", fsec: "ideas", word: "bathtub", wp: null, stage: 0 };
 
 const K = (s, display) => { try { return katex.renderToString(s, { displayMode: !!display, throwOnError: false }); } catch { return s; } };
 const math = el => renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "\\(", right: "\\)", display: false }], throwOnError: false });
@@ -16,6 +16,7 @@ function setTab(t) {
   if (t === "practice" && !state.prob) newProblem();
   if (t === "word" && !state.wp) newWord();
   if (t === "learn") renderLesson();
+  if (t === "formulas") renderFormulas();
   sidebar();
 }
 
@@ -32,6 +33,11 @@ function sidebar() {
   if (state.tab === "learn") {
     sb.appendChild(heading("Lessons"));
     LESSONS.forEach(l => sb.appendChild(item(`${l.icon}&nbsp; ${l.title}`, "", state.lesson === l.id, () => { state.lesson = l.id; renderLesson(); sidebar(); })));
+  } else if (state.tab === "formulas") {
+    sb.appendChild(heading("Formula Page"));
+    FORMULAS.forEach(f => sb.appendChild(item(`${f.icon}&nbsp; ${f.title}`, f.cards.length, state.fsec === f.id, () => {
+      state.fsec = f.id; sidebar(); document.getElementById("fs-" + f.id).scrollIntoView({ behavior: "smooth" });
+    })));
   } else if (state.tab === "practice") {
     const mixed = document.createElement("button");
     mixed.className = "mixed" + (state.mixed ? " primary" : ""); mixed.textContent = "🔀 Mixed review (all topics)";
@@ -65,6 +71,24 @@ function renderLesson() {
                     : `<button class="primary" data-tab-go="word">Try a word problem →</button>`}</span></div>`);
   $("lesson").querySelectorAll("[data-go]").forEach(b => b.onclick = () => { state.lesson = b.dataset.go; renderLesson(); sidebar(); window.scrollTo(0, 0); });
   $("lesson").querySelectorAll("[data-tab-go]").forEach(b => b.onclick = () => setTab(b.dataset.tabGo));
+}
+
+// ---------- Formula Page ----------
+function renderFormulas() {
+  const el = $("formulaPage");
+  if (el.dataset.done) return;
+  el.dataset.done = 1;
+  setHTML(el, `<div class="card fp-hero"><h1>📋 Formula Page</h1>
+      <p>Every formula and big idea, explained in plain, easy words — plus a picture to help it stick.</p></div>`
+    + FORMULAS.map(sec => `<section class="fp-sec" id="fs-${sec.id}">
+        <h2>${sec.icon} ${sec.title}</h2><p class="muted fp-intro">${sec.intro}</p>
+        <div class="fp-grid">${sec.cards.map(c => `<div class="fp-card">
+          <div class="fp-name">${c.name}</div>
+          <div class="fp-tex">${K(c.tex, true)}</div>
+          <div class="fp-plain"><span class="tag">In plain words</span>${c.plain}</div>
+          <div class="fp-like"><span class="tag">Think of it like…</span>${c.like}</div>
+          ${c.ex ? `<div class="fp-ex"><span class="tag">Example</span>${K(c.ex, true)}</div>` : ""}
+        </div>`).join("")}</div></section>`).join(""));
 }
 
 // ---------- Practice ----------

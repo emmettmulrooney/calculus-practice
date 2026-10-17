@@ -11,6 +11,7 @@
   <script defer src="app.js"></script>
   <script defer src="lessons.js"></script>
   <script defer src="word.js"></script>
+  <script defer src="formulas.js"></script>
   <script defer src="ui.js"></script>
 </head>
 <body>
@@ -18,6 +19,7 @@
     <div class="brand">∫ Calculus Practice</div>
     <nav class="tabs">
       <button data-tab="learn">📖 Learn</button>
+      <button data-tab="formulas">📋 Formula Page</button>
       <button data-tab="practice">✏️ Practice</button>
       <button data-tab="word">🛁 Word Problems</button>
     </nav>
@@ -35,6 +37,11 @@
       <!-- LEARN -->
       <section id="view-learn" class="view">
         <article class="card lesson" id="lesson"></article>
+      </section>
+
+      <!-- FORMULAS -->
+      <section id="view-formulas" class="view">
+        <div id="formulaPage"></div>
       </section>
 
       <!-- PRACTICE -->

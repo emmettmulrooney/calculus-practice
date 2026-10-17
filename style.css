@@ -166,3 +166,21 @@ table.rules td:first-child { font-weight: 600; width: 110px; color: var(--muted)
   .main { padding: 14px; }
   .card { padding: 18px; }
 }
+
+/* Formula Page */
+.fp-hero h1 { margin: 0 0 6px; font-size: 26px; }
+.fp-hero p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.fp-sec { margin-top: 30px; scroll-margin-top: 16px; }
+.fp-sec h2 { margin: 0 0 4px; font-size: 21px; }
+.fp-intro { margin: 0 0 14px; font-size: 14.5px; }
+.fp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+.fp-card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px;
+  display: flex; flex-direction: column; gap: 10px; line-height: 1.6; font-size: 15px; }
+.fp-name { font-weight: 700; font-size: 16px; color: var(--accent); }
+.fp-tex { background: #f7f8fc; border-radius: 8px; padding: 4px 8px; overflow-x: auto; }
+.fp-tex .katex-display { margin: .6em 0; }
+.fp-like { background: #fff8e6; border-radius: 8px; padding: 10px 12px; }
+.fp-ex { overflow-x: auto; }
+.fp-ex .katex-display { margin: .3em 0; text-align: left; }
+.tag { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+  color: var(--muted); margin-bottom: 2px; }
