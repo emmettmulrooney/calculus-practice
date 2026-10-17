@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculus Practice</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="app.js"></script>
+  <script defer src="lessons.js"></script>
+  <script defer src="word.js"></script>
+  <script defer src="ui.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">∫ Calculus Practice</div>
+    <nav class="tabs">
+      <button data-tab="learn">📖 Learn</button>
+      <button data-tab="practice">✏️ Practice</button>
+      <button data-tab="word">🛁 Word Problems</button>
+    </nav>
+    <div class="stats">
+      <span>Streak <b id="streak">0</b></span>
+      <span>Solved <b id="solved">0</b></span>
+      <button id="resetStats" class="link">Reset</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar"></nav>
+
+    <main class="main">
+      <!-- LEARN -->
+      <section id="view-learn" class="view">
+        <article class="card lesson" id="lesson"></article>
+      </section>
+
+      <!-- PRACTICE -->
+      <section id="view-practice" class="view">
+        <div class="card">
+          <div class="crumb" id="crumb"></div>
+          <div class="prompt" id="promptText"></div>
+          <div class="prompt-math" id="promptMath"></div>
+
+          <div class="answer-row">
+            <input id="answer" type="text" autocomplete="off" spellcheck="false"
+                   placeholder="Type your answer, e.g. 3x^2 - sin(x)" />
+            <button id="checkBtn" class="primary">Check</button>
+          </div>
+          <div class="keypad" id="keypad"></div>
+          <div class="preview"><span class="muted">Preview:</span> <span id="preview"></span></div>
+          <div id="feedback" class="feedback"></div>
+
+          <div class="actions">
+            <button id="simpleBtn">🧒 Explain it simply</button>
+            <button id="hintBtn">💡 Hint</button>
+            <button id="solutionBtn">Show solution</button>
+            <button id="nextBtn">Next problem →</button>
+          </div>
+
+          <div id="simple" class="simple hidden"></div>
+          <div id="hint" class="hint hidden"></div>
+          <div id="solution" class="solution hidden"></div>
+        </div>
+
+        <section class="help">
+          <details>
+            <summary>How to type answers</summary>
+            <ul>
+              <li>Powers: <code>x^3</code>, <code>(2x+1)^4</code>, <code>e^(3x)</code>. Use parentheses around multi-term exponents.</li>
+              <li>Functions: <code>sin(x)</code>, <code>cos x</code>, <code>sec^2(x)</code>, <code>ln(x)</code>, <code>sqrt(x)</code>, <code>arctan(x)</code>, <code>|x|</code>.</li>
+              <li>Constants: <code>pi</code>, <code>e</code>. Fractions like <code>3/2</code> are fine.</li>
+              <li>Multiplication can be implicit: <code>2x sin(x)</code> or <code>x(x+1)</code>.</li>
+              <li>Antiderivatives: include <code>+ C</code>. Any equivalent form is accepted.</li>
+              <li><kbd>Enter</kbd> to check, <kbd>Enter</kbd> again for the next problem.</li>
+            </ul>
+          </details>
+        </section>
+      </section>
+
+      <!-- WORD PROBLEMS -->
+      <section id="view-word" class="view">
+        <div class="card">
+          <div class="word-head">
+            <span class="word-icon" id="wIcon"></span>
+            <h2 id="wTitle"></h2>
+          </div>
+          <div class="story" id="wStory"></div>
+          <div class="actions" style="margin-top:12px">
+            <button id="wSimpleBtn">🧒 Explain it simply</button>
+            <button id="wNewBtn">🎲 New numbers</button>
+          </div>
+          <div id="wSimple" class="simple hidden"></div>
+
+          <ol class="stepper" id="wStepper"></ol>
+          <div id="wStages"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
